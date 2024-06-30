@@ -1,0 +1,3 @@
+example_domain:
+    resource: ../src/ExampleInfrastructure
+    type: attribute

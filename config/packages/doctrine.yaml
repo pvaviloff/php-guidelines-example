@@ -1,0 +1,60 @@
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                driver: pdo_pgsql
+                user: '%env(resolve:POSTGRES_USER)%'
+                password: '%env(resolve:POSTGRES_PASSWORD)%'
+                host: '%env(resolve:POSTGRES_HOST)%'
+                port: '%env(resolve:POSTGRES_PORT)%'
+                dbname: '%env(resolve:POSTGRES_DB)%'
+                charset: UTF8
+                application_name: app
+                use_savepoints: true
+    orm:
+        auto_generate_proxy_classes: true
+        enable_lazy_ghost_objects: true
+        report_fields_where_declared: true
+        validate_xml_mapping: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+            ExampleDomain:
+                is_bundle: false
+                type: attribute
+                dir: '%kernel.project_dir%/src/ExampleDomain/Entities'
+                prefix: 'App\ExampleDomain\Entities'
+                alias: ExampleDomain
+        controller_resolver:
+            auto_mapping: false
+
+when@test:
+    doctrine:
+        dbal:
+            default_connection: default
+            connections:
+                default:
+                    driver: pdo_sqlite
+                    path: '%kernel.cache_dir%/test.sqlite'
+                    dbname: 'test'
+
+when@prod:
+    doctrine:
+        orm:
+            auto_generate_proxy_classes: false
+            proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
+            query_cache_driver:
+                type: pool
+                pool: doctrine.system_cache_pool
+            result_cache_driver:
+                type: pool
+                pool: doctrine.result_cache_pool
+
+    framework:
+        cache:
+            pools:
+                doctrine.result_cache_pool:
+                    adapter: cache.app
+                doctrine.system_cache_pool:
+                    adapter: cache.system

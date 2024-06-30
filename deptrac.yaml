@@ -1,0 +1,176 @@
+deptrac:
+  paths:
+    - ./src
+
+  exclude_files:
+    - '#.*test.*#'
+
+  layers:
+    - name: BrandFixture
+      collectors:
+        - type: classLike
+          value: .*DataFixtures\\.*
+    - name: Controller
+      collectors:
+        - type: classLike
+          value: .*Infrastructure\\Controllers\\.*
+    - name: Request
+      collectors:
+        - type: classLike
+          value: .*Infrastructure\\Requests\\.*
+    - name: Response
+      collectors:
+        - type: classLike
+          value: .*Infrastructure\\Responses\\.*
+    - name: MessageHandler
+      collectors:
+        - type: classLike
+          value: .*Infrastructure\\MessageHandlers\\.*
+    - name: Command
+      collectors:
+        - type: classLike
+          value: .*Infrastructure\\Commands\\.*
+    - name: Repository
+      collectors:
+        - type: classLike
+          value: .*Domain\\Repositories\\.*
+    - name: Service
+      collectors:
+        - type: classLike
+          value: .*Domain\\Services\\.*
+    - name: Aggregate
+      collectors:
+        - type: classLike
+          value: .*Domain\\Aggregates\\.*
+    - name: ValueObject
+      collectors:
+        - type: classLike
+          value: .*Domain\\ValueObjects\\.*
+    - name: Constant
+      collectors:
+        - type: classLike
+          value: .*Domain\\Constants\\.*
+    - name: Entity
+      collectors:
+        - type: classLike
+          value: .*Domain\\Entities\\.*
+    - name: Exception
+      collectors:
+        - type: classLike
+          value: .*Domain\\Exceptions\\.*
+    - name: NotDomain
+      collectors:
+        - type: bool
+          must:
+            - type: classLike
+              value: .*Domain\\.*
+          must_not:
+            - type: classLike
+              value: .*Domain\\Repositories\\.*
+            - type: classLike
+              value: .*Domain\\Services\\.*
+            - type: classLike
+              value: .*Domain\\Aggregates\\.*
+            - type: classLike
+              value: .*Domain\\ValueObjects\\.*
+            - type: classLike
+              value: .*Domain\\Constants\\.*
+            - type: classLike
+              value: .*Domain\\Entities\\.*
+            - type: classLike
+              value: .*Domain\\Exceptions\\.*
+    - name: NotInfrastructure
+      collectors:
+        - type: bool
+          must:
+            - type: classLike
+              value: .*Infrastructure\\.*
+          must_not:
+            - type: classLike
+              value: .*Infrastructure\\Commands\\.*
+            - type: classLike
+              value: .*Infrastructure\\Controllers\\.*
+            - type: classLike
+              value: .*Infrastructure\\MessageHandlers\\.*
+            - type: classLike
+              value: .*Infrastructure\\Requests\\.*
+            - type: classLike
+              value: .*Infrastructure\\Responses\\.*
+    - name: NotApp
+      collectors:
+        - type: bool
+          must:
+            - type: classLike
+              value: .*App\\.*
+          must_not:
+            - type: classLike
+              value: .*DataFixtures\\.*
+            - type: classLike
+              value: .*Domain\\.*
+            - type: classLike
+              value: .*Infrastructure\\.*
+  ruleset:
+    BrandFixture:
+      - Entity
+      - Aggregate
+      - ValueObject
+      - Constant
+    Controller:
+      - Service
+      - ValueObject
+      - Constant
+      - Request
+      - Response
+      - Exception
+    Request:
+      - Aggregate
+      - ValueObject
+      - Constant
+    Response:
+      - Aggregate
+      - Entity
+      - ValueObject
+      - Constant
+    MessageHandler:
+      - Service
+      - ValueObject
+      - Constant
+      - Request
+      - Response
+      - Exception
+    Command:
+      - Service
+      - ValueObject
+      - Constant
+      - Request
+      - Response
+      - Exception
+    Service:
+      - Repository
+      - ValueObject
+      - Aggregate
+      - Entity
+      - Constant
+      - Exception
+    Repository:
+      - ValueObject
+      - Constant
+      - Exception
+      - Entity
+    Aggregate:
+      - ValueObject
+      - Constant
+      - Exception
+    ValueObject:
+      - Constant
+      - Exception
+    Entity:
+      - Constant
+      - Exception
+
+  analyser:
+    types:
+      - class_superglobal
+      - function_superglobal
+      - use
+      - file
