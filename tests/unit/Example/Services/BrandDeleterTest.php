@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\unit\Example\Services;
 
-
 use App\ExampleDomain\Exceptions\BrandDeleterException;
 use App\ExampleDomain\Repositories\BrandRepository;
 use App\ExampleDomain\Services\BrandDeleter;
@@ -13,10 +12,10 @@ use Symfony\Component\Uid\Uuid;
 
 final class BrandDeleterTest extends KernelTestCase
 {
-    public function testBrandIsMissing()
+    public function testBrandIsMissing(): void
     {
         $this->expectException(BrandDeleterException::class);
-        $this->expectExceptionMessage("Brand is missing");
+        $this->expectExceptionMessage('Brand is missing');
 
         self::bootKernel();
         $container = BrandDeleterTest::getContainer();
@@ -31,5 +30,4 @@ final class BrandDeleterTest extends KernelTestCase
         $brandDeleter = $container->get(BrandDeleter::class);
         $brandDeleter->delete(Uuid::v4());
     }
-
 }

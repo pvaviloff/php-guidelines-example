@@ -1,11 +1,17 @@
-# PHP Guidelines example
+# PHP Guidelines Example
 
 ![Execute tests](https://github.com/pvaviloff/php-guidelines-example/actions/workflows/symfony.yml/badge.svg)
 
-Implementation according to the ["PHP Guidelines"](https://github.com/pvaviloff/php-guidelines).
+An example project implemented according to the [PHP Guidelines](https://github.com/pvaviloff/php-guidelines).
 
-## Setting up the example
+## Getting Started
 
-```bash 
+Start the application using Docker:
+
+```shell
 docker compose up -d
 ```
+
+Once the containers are running, the API documentation is available at:
+
+👉 http://localhost

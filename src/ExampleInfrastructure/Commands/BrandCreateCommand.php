@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\ExampleInfrastructure\Commands;
 
-
 use App\ExampleDomain\Services\BrandCreator;
 use App\ExampleDomain\ValueObjects\BrandCreatorObject;
 use Doctrine\ORM\EntityManagerInterface;
@@ -36,5 +35,4 @@ final class BrandCreateCommand extends Command
 
         return self::SUCCESS;
     }
-
 }

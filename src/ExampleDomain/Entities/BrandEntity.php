@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\ExampleDomain\Entities;
 
-use Symfony\Component\Uid\Uuid;
-use Doctrine\ORM\Mapping as ORM;
 use App\ExampleDomain\Constants\DbConst;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity]
-#[ORM\Table(name:DbConst::BRANDS)]
+#[ORM\Table(name: DbConst::BRANDS)]
 class BrandEntity
 {
     #[ORM\Id]
-    #[ORM\Column(type: "uuid")]
+    #[ORM\Column(type: 'uuid')]
     public readonly Uuid $guid;
 
     public function __construct(
@@ -22,5 +22,4 @@ class BrandEntity
     ) {
         $this->guid = Uuid::v4();
     }
-
 }

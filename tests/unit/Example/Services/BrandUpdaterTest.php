@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\unit\Example\Services;
 
-
 use App\ExampleDomain\Exceptions\BrandUpdaterException;
 use App\ExampleDomain\Repositories\BrandRepository;
 use App\ExampleDomain\Services\BrandUpdater;
@@ -14,10 +13,10 @@ use Symfony\Component\Uid\Uuid;
 
 final class BrandUpdaterTest extends KernelTestCase
 {
-    public function testBrandIsMissing()
+    public function testBrandIsMissing(): void
     {
         $this->expectException(BrandUpdaterException::class);
-        $this->expectExceptionMessage("Brand is missing");
+        $this->expectExceptionMessage('Brand is missing');
 
         self::bootKernel();
         $container = BrandUpdaterTest::getContainer();
@@ -30,13 +29,13 @@ final class BrandUpdaterTest extends KernelTestCase
 
         /** @var BrandUpdater $brandUpdater */
         $brandUpdater = $container->get(BrandUpdater::class);
-        $brandUpdater->update(new BrandUpdaterObject(Uuid::v4(), "BrandIsMissing"));
+        $brandUpdater->update(new BrandUpdaterObject(Uuid::v4(), 'BrandIsMissing'));
     }
 
-    public function testBrandNameAlreadyExists()
+    public function testBrandNameAlreadyExists(): void
     {
         $this->expectException(BrandUpdaterException::class);
-        $this->expectExceptionMessage("Brand name already exists");
+        $this->expectExceptionMessage('Brand name already exists');
 
         self::bootKernel();
         $container = BrandUpdaterTest::getContainer();
@@ -51,7 +50,6 @@ final class BrandUpdaterTest extends KernelTestCase
 
         /** @var BrandUpdater $brandUpdater */
         $brandUpdater = $container->get(BrandUpdater::class);
-        $brandUpdater->update(new BrandUpdaterObject(Uuid::v4(), "BrandNameAlreadyExists"));
+        $brandUpdater->update(new BrandUpdaterObject(Uuid::v4(), 'BrandNameAlreadyExists'));
     }
-
 }

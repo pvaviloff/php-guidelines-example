@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\ExampleInfrastructure\Controllers;
 
-
 use App\ExampleDomain\Exceptions\BrandCreatorException;
 use App\ExampleDomain\Services\BrandCreator;
 use App\ExampleDomain\ValueObjects\BrandCreatorObject;
@@ -21,23 +20,20 @@ final class BrandCreateController
     #[Route(
         path: '/api/brand',
         name: 'Create brand',
-        methods: ["POST"]
+        methods: ['POST']
     )]
     public function __invoke(
         #[MapRequestPayload] BrandCreateRequest $request,
         BrandCreator $brandCreator,
         EntityManagerInterface $entityManager,
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             $brand = $brandCreator->create(new BrandCreatorObject($request->brandName));
         } catch (BrandCreatorException $exception) {
-
             return new ExceptionResponse($exception);
         }
         $entityManager->flush();
 
         return new BrandCreateResponse($brand->guid->toString());
     }
-
 }

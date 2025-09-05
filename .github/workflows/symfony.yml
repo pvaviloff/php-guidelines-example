@@ -41,10 +41,12 @@ jobs:
       run: php vendor/bin/psalm
     - name: Execute Deptrac
       run: php vendor/bin/deptrac analyse
+    - name: Execute PHP CS Fixer
+      run: php vendor/bin/php-cs-fixer check --allow-risky=yes
     - name: Create Database
       run: |
         php bin/console --env=test doctrine:database:create
         php bin/console --env=test doctrine:schema:create
         php bin/console --env=test doctrine:fixtures:load --no-interaction
     - name: Execute tests (Unit and Feature tests) via PHPUnit
-      run: php bin/phpunit
+      run: php bin/phpunit --coverage-text

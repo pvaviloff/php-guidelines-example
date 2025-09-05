@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\ExampleInfrastructure\Controllers;
 
-
 use App\ExampleDomain\Exceptions\BrandUpdaterException;
 use App\ExampleDomain\Services\BrandUpdater;
 use App\ExampleDomain\ValueObjects\BrandUpdaterObject;
@@ -23,24 +22,21 @@ final class BrandUpdateController
         path: '/api/brand/{guid}',
         name: 'Update brand',
         requirements: ['guid' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'],
-        methods: ["PUT"]
+        methods: ['PUT']
     )]
     public function __invoke(
         string $guid,
         #[MapRequestPayload] BrandUpdateRequest $request,
         BrandUpdater $brandUpdater,
         EntityManagerInterface $entityManager,
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             $brandUpdater->update(new BrandUpdaterObject(Uuid::fromString($guid), $request->brandName));
         } catch (BrandUpdaterException $exception) {
-
             return new ExceptionResponse($exception);
         }
         $entityManager->flush();
 
         return new BrandUpdateResponse();
     }
-
 }

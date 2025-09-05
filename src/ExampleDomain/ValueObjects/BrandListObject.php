@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\ExampleDomain\ValueObjects;
 
-
 use App\ExampleDomain\Exceptions\BrandListObjectException;
 
 final readonly class BrandListObject
@@ -24,5 +23,4 @@ final readonly class BrandListObject
     {
         return ($this->page - 1) * $this->limit;
     }
-
 }

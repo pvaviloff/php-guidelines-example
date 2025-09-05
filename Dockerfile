@@ -17,6 +17,8 @@ RUN apt-get update && apt-get install -y \
         libzip-dev \
         unzip \
         supervisor \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug \
     && docker-php-ext-install pcntl \
     && docker-php-ext-install bcmath \
     && docker-php-ext-install mbstring \

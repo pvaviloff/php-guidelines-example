@@ -19,14 +19,12 @@ final class Version20240629134155 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE brands (guid UUID NOT NULL, name VARCHAR(140) NOT NULL, PRIMARY KEY(guid))');
         $this->addSql('COMMENT ON COLUMN brands.guid IS \'(DC2Type:uuid)\'');
     }
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SCHEMA public');
         $this->addSql('DROP TABLE brands');
     }

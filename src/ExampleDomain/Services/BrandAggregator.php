@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\ExampleDomain\Services;
 
-
 use App\ExampleDomain\Aggregates\BrandListAggregate;
 use App\ExampleDomain\Aggregates\BrandObjectCollection;
 use App\ExampleDomain\Entities\BrandEntity;
@@ -17,12 +16,13 @@ final readonly class BrandAggregator
 {
     public function __construct(
         private BrandRepository $brandRepository,
-    ) {}
+    ) {
+    }
 
     public function getByGuid(Uuid $guid): BrandEntity
     {
         if (!$this->brandRepository->isExistByGuid($guid)) {
-            throw new BrandAggregatorException("Brand is missing");
+            throw new BrandAggregatorException('Brand is missing');
         }
 
         return $this->brandRepository->getByGuid($guid);
@@ -42,5 +42,4 @@ final readonly class BrandAggregator
             $listObject->limit,
         );
     }
-
 }

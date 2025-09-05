@@ -15,12 +15,12 @@ final readonly class BrandCreateHandler
     public function __construct(
         private BrandCreator $brandCreator,
         private EntityManagerInterface $entityManager,
-    ) {}
+    ) {
+    }
 
     public function __invoke(BrandCreatorObject $brandCreatorObject): void
     {
         $this->brandCreator->create($brandCreatorObject);
         $this->entityManager->flush();
     }
-
 }

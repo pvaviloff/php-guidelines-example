@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\ExampleInfrastructure\Controllers;
 
-
 use App\ExampleDomain\Exceptions\BrandDeleterException;
 use App\ExampleDomain\Services\BrandDeleter;
 use App\ExampleInfrastructure\Responses\BrandDeleteResponse;
@@ -20,23 +19,20 @@ final class BrandDeleteController
         path: '/api/brand/{guid}',
         name: 'Delete brand',
         requirements: ['guid' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'],
-        methods: ["DELETE"]
+        methods: ['DELETE']
     )]
     public function __invoke(
         string $guid,
         BrandDeleter $brandDeleter,
         EntityManagerInterface $entityManager,
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             $brandDeleter->delete(Uuid::fromString($guid));
         } catch (BrandDeleterException $exception) {
-
             return new ExceptionResponse($exception);
         }
         $entityManager->flush();
 
         return new BrandDeleteResponse();
     }
-
 }

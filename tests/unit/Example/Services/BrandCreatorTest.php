@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\unit\Example\Services;
 
-
 use App\ExampleDomain\Exceptions\BrandCreatorException;
 use App\ExampleDomain\Repositories\BrandRepository;
 use App\ExampleDomain\Services\BrandCreator;
@@ -13,10 +12,10 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 final class BrandCreatorTest extends KernelTestCase
 {
-    public function testIsBrandExist()
+    public function testIsBrandExist(): void
     {
         $this->expectException(BrandCreatorException::class);
-        $this->expectExceptionMessage("Brand exist");
+        $this->expectExceptionMessage('Brand exist');
 
         self::bootKernel();
         $container = BrandCreatorTest::getContainer();
@@ -29,7 +28,6 @@ final class BrandCreatorTest extends KernelTestCase
 
         /** @var BrandCreator $brandCreator */
         $brandCreator = $container->get(BrandCreator::class);
-        $brandCreator->create(new BrandCreatorObject("IsBrandExist"));
+        $brandCreator->create(new BrandCreatorObject('IsBrandExist'));
     }
-
 }

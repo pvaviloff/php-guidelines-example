@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\ExampleDomain\Repositories;
 
-
 use App\ExampleDomain\Constants\DbConst;
 use App\ExampleDomain\Entities\BrandEntity;
 use App\ExampleDomain\ValueObjects\BrandListObject;
@@ -50,7 +49,7 @@ class BrandRepository
         $builder = $this->entityManager->getRepository(BrandEntity::class)->createQueryBuilder('b');
 
         return $builder
-            ->where("b.guid = :guid")
+            ->where('b.guid = :guid')
             ->setParameter(':guid', $guid->toString())
             ->getQuery()
             ->getSingleResult();
@@ -77,12 +76,10 @@ class BrandRepository
             ->setFirstResult($listObject->getOffset());
 
         foreach ($query->executeQuery()->iterateAssociative() as $brand) {
-
             yield new BrandObject(
                 Uuid::fromString($brand['guid']),
                 $brand['name'],
             );
         }
     }
-
 }
